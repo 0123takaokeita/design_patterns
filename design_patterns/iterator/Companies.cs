@@ -206,6 +206,22 @@ namespace CEO
         public override void callCompanyList()
         {
             IIterator iterator = companies.iterator();
+
+        public override void creatEngnieerList()
+        {
+            engineers = new EngineerList(5);
+            engineers.add(new Engineer("takao", 1));
+            engineers.add(new Engineer("lobin", 2));
+            engineers.add(new Engineer("tomo", 3));
+            engineers.add(new Engineer("hagi", 4));
+            engineers.add(new Engineer("abi", 5));
+        }
+
+        public override void callEngnieerList()
+        {
+            IIterator iterator = engineers.iterator();
+            callList(iterator);
+        }
             while (iterator.hasNext())
             {
                 Company company = (Company)iterator.next();
@@ -225,6 +241,8 @@ namespace CEO
             Takao takao = new Takao();
             takao.createCompanyList();
             takao.callCompanyList();
+            takao.creatEngnieerList();
+            takao.callEngnieerList();
             Console.ReadLine();
         }
     }
