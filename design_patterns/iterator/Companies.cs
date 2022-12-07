@@ -19,6 +19,15 @@ namespace CEO
     }
 
     /// <summary>
+    /// 集合の中のパーツのインターフェース
+    /// </summary>
+    interface IPart
+    {
+        public string getName();
+        public int getPrice();
+    }
+
+    /// <summary>
     /// 会社リスト用のIterator実装
     /// </summary>
     public class CompanyListIterator : IIterator
