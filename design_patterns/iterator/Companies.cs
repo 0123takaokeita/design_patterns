@@ -1,4 +1,3 @@
-
 namespace CEO
 {
     /// <summary>
@@ -131,11 +130,10 @@ namespace CEO
         }
     }
 
-
     /// <summary>
     /// 会社
     /// </summary>
-    public class Company
+    public class Company : IPart
     {
         private string name;
         private int price;
@@ -178,6 +176,8 @@ namespace CEO
         private CompanyList companies;
         public abstract void createCompanyList();
         public abstract void callCompanyList();
+        public abstract void creatEngnieerList();
+        public abstract void callEngnieerList();
     }
 
     /// <summary>
@@ -186,6 +186,7 @@ namespace CEO
     public class Takao : AbstractPerson
     {
         private CompanyList companies;
+        private EngineerList engineers;
 
         /// <summary>
         /// 会社リストを作成する
@@ -206,6 +207,8 @@ namespace CEO
         public override void callCompanyList()
         {
             IIterator iterator = companies.iterator();
+            callList(iterator);
+        }
 
         public override void creatEngnieerList()
         {
@@ -222,11 +225,18 @@ namespace CEO
             IIterator iterator = engineers.iterator();
             callList(iterator);
         }
+
+        /// <summary>
+        /// 集合の名前と値段を最後まで羅列する。
+        /// </summary>
+        /// <param name="iterator"></param>
+        private void callList(IIterator iterator)
+        {
             while (iterator.hasNext())
             {
-                Company company = (Company)iterator.next();
-                Console.WriteLine(company.getName());
-                Console.WriteLine(company.getPrice());
+                IPart obj = (IPart)iterator.next();
+                Console.WriteLine(obj.getName());
+                Console.WriteLine(obj.getPrice());
             }
         }
     }
