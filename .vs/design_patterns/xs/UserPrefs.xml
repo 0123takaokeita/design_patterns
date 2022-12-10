@@ -1,4 +1,4 @@
-﻿<Properties StartupConfiguration="{5927D4DE-1509-48DA-8606-62FA9C2A9670}|Default">
+﻿<Properties StartupConfiguration="{96397CB6-63B0-43C2-AC1A-7F6287B45123}|Default">
   <MonoDevelop.Ide.ItemProperties.design__patterns PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.iterator PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
@@ -29,5 +29,5 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.adapter FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.adapter PreferredExecutionTarget="MonoDevelop.Default" FirstBuild="True" />
 </Properties>
