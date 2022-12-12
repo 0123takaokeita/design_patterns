@@ -4,7 +4,7 @@ namespace Neogenia2
     /// <summary>
     /// TeachLeadのインターフェース
     /// </summary>
-    interface ITechLead
+    public interface ITechLead
     {
         public void recreate();
     }
@@ -14,7 +14,10 @@ namespace Neogenia2
     /// </summary>
     class Neogneia
     {
-
+        /// <summary>
+        /// ルート
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             ITechLead techLead = new NewTechLead();
@@ -24,26 +27,31 @@ namespace Neogenia2
     }
 
     /// <summary>
-    /// テックリードポジションのクラス
-    /// </summary>
-    class NewTechLead : Programmer, ITechLead
-    {
-        public void recreate()
-        {
-            //Console.WriteLine("TechLead が作り直します。");
-            refactor();
-        }
-    }
-
-    /// <summary>
     /// プログラマ
     /// </summary>
     class Programmer
     {
+        /// <summary>
+        /// リファクタリングを行う
+        /// </summary>
         public void refactor()
         {
             Console.WriteLine("Programmer がリファクタリングします。");
         }
     }
 
+    /// <summary>
+    /// 新しいテックリード
+    /// </summary>
+    class NewTechLead : Programmer, ITechLead
+    {
+        /// <summary>
+        /// 作り直します。
+        /// </summary>
+        public void recreate()
+        {
+            // 自分がもともと持っていたリファクタリングスキルを使う
+            refactor();
+        }
+    }
 }
