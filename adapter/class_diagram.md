@@ -9,12 +9,11 @@
 
 ```mermaid
 classDiagram
-    ITechLeader <|.. TechLead : 実装
-    ITechLeader <--  Neogenia : Use
-    TechLead    <--  Neogenia : Create
-    Programmer  <|.. TechLead : 委譲
+    AbstractTechLeader <|-- TechLead : 継承
+    AbstractTechLeader <--  Neogenia : Use
+    Programmer         <|.. TechLead : 委譲
 
-    class ITechLeader {
+    class AbstractTechLeader {
         string recreate()
     }
 
@@ -23,24 +22,21 @@ classDiagram
     }
 
     class TechLead {
-        Programmer programmer
         string recreate()
     }
 
     class Programmer{
         string refactor()
     }
-
 ```
 
 ```mermaid
 classDiagram
-    Itechleader <|.. techlead   : 実装
-    Itechleader <--  neogenia   : use
-    programmer  <--  neogenia   : create
-    techlead    <|-- programmer : 継承
+    ITechLead <|.. TechLead : 実装
+    ITechLead <--  neogenia : use
+    Programmer  <|-- TechLead : 継承
 
-    class Itechleader {
+    class ITechLead {
         string recreate()
     }
 
@@ -48,11 +44,11 @@ classDiagram
         main()
     }
 
-    class techlead {
+    class TechLead {
         string recreate()
     }
 
-    class programmer{
+    class Programmer{
         string refactor()
     }
 
