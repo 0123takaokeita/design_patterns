@@ -1,33 +1,27 @@
-﻿<Properties StartupConfiguration="{96397CB6-63B0-43C2-AC1A-7F6287B45123}|Default">
+﻿<Properties StartupConfiguration="{5927D4DE-1509-48DA-8606-62FA9C2A9670}|Default">
   <MonoDevelop.Ide.ItemProperties.design__patterns PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.ItemProperties.iterator PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <DisabledProjects>
-    <String>adapter/adapter.csproj</String>
-  </DisabledProjects>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="design_patterns/iterator/EngineerList.cs">
-    <Files>
-      <File FileName="design_patterns/iterator/EngineerList.cs" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="design_patterns" expanded="True">
-            <Node name="adapter" expanded="True" />
-            <Node name="design_patterns" expanded="True">
-              <Node name="iterator" expanded="True">
-                <Node name="EngineerList.cs" selected="True" />
-              </Node>
+            <Node name="design_patterns" expanded="True" selected="True">
+              <Node name="iterator" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.adapter PreferredExecutionTarget="MonoDevelop.Default" FirstBuild="True" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.iterator PreferredExecutionTarget="MonoDevelop.Default" />
+  <DisabledProjects>
+    <String>adapter/adapter.csproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.ItemProperties.adapter PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>

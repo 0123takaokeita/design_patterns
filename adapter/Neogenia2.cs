@@ -46,7 +46,6 @@ namespace Neogenia2
     class NewTechLead : Programmer, ITechLead
     {
         /// <summary>
-        /// 作り直します。
         /// </summary>
         public void recreate()
         {

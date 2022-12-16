@@ -1,8 +1,9 @@
-// 継承パターン
+//  委譲パターン
 namespace Neogenia
 {
     /// <summary>
-    /// TeachLeadのインターフェース
+    /// TeachLead抽象クラス
+    /// Target
     /// </summary>
     public abstract class AbstractTechLead
     {
@@ -11,13 +12,13 @@ namespace Neogenia
 
     /// <summary>
     /// 社員に指示を出すクラス
+    /// Client
     /// </summary>
     class Neogneia
     {
-
         static void Main(string[] args)
         {
-            TechLead techLead = new TechLead();
+            AbstractTechLead techLead = new TechLead();
             techLead.recreate();
             Console.ReadLine();
         }
@@ -25,6 +26,7 @@ namespace Neogenia
 
     /// <summary>
     /// テックリードポジションのクラス
+    /// Adapter
     /// </summary>
     class TechLead : AbstractTechLead
     {
@@ -40,6 +42,7 @@ namespace Neogenia
 
     /// <summary>
     /// プログラマ
+    /// Adaptee
     /// </summary>
     class Programmer
     {

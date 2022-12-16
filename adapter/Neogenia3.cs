@@ -1,4 +1,5 @@
-﻿namespace Neogenia3
+﻿//これは？
+namespace Neogenia3
 {
     /// <summary>
     /// TeachLeadのインターフェース
