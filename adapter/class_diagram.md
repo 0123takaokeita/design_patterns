@@ -22,6 +22,7 @@ classDiagram
     }
 
     class TechLead {
+        Programmer _programmer
         string recreate()
     }
 
