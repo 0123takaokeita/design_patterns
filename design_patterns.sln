@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "design_patterns", "design_p
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "adapter", "adapter\adapter.csproj", "{96397CB6-63B0-43C2-AC1A-7F6287B45123}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryMethod", "FactoryMethod\FactoryMethod.csproj", "{A56A1C2A-5F0B-4CB7-AA77-87B12FE71973}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{96397CB6-63B0-43C2-AC1A-7F6287B45123}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96397CB6-63B0-43C2-AC1A-7F6287B45123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96397CB6-63B0-43C2-AC1A-7F6287B45123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A56A1C2A-5F0B-4CB7-AA77-87B12FE71973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A56A1C2A-5F0B-4CB7-AA77-87B12FE71973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A56A1C2A-5F0B-4CB7-AA77-87B12FE71973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A56A1C2A-5F0B-4CB7-AA77-87B12FE71973}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
