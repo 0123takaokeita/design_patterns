@@ -403,3 +403,5 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+.vs/design_patterns/xs
+design_patterns

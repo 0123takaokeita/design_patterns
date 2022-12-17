@@ -1,3 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-Console.WriteLine("Hello, World!");
+﻿class Takao
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("takao");
+    }
+}
