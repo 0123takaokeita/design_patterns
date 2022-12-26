@@ -33,3 +33,18 @@ public abstract class Factory
     }
 }
 
+public class IDCard : Product
+{
+    private string owner { get; }
+
+    public IDCard(string name)
+    {
+        owner = name;
+        Console.WriteLine($"{owner} のカードを作成します。");
+    }
+
+    public override void use()
+    {
+       Console.WriteLine($"{owner}のカードを使用します。"); 
+    }
+}
