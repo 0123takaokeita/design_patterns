@@ -8,15 +8,14 @@
     classK ..>  classL : Dependency(依存関係)
 
 # Template Method Pattern
-抽象クラスに定義している `display` メソッドがテンプレートメソッドと呼ばれる。
-可変するのは `Concreate~` クラスで dispalay の動作に合わせて実装する必要がある。
-動きが保証されるのがメリットだが、抽象クラスの中を知っておかないとプログラミング出来ない不便さはある。
-
+抽象クラスに定義している `display` メソッドがテンプレートメソッド。
+可変するのは `Concreate~` クラスで dispalay が動くように実装することが求められる。
+共通化がメリットだが、抽象クラスの中をみないとプログラミング出来ない不便さがある。
 
 - UserClass が実行
-- AbstractClass がテンプレートを定義されるている
-- ConcreateClassA が`open` などを定義する(displayはoverride出来ない用にする)
-- ConcreateClassB が`open` などを定義する(displayはoverride出来ない用にする)
+- AbstractClass がテンプレートを持つ。
+- ConcreateClassA がメソッドを実装(displayはoverrideしない)
+- ConcreateClassB がメソッドを実装(displayはoverrideしない)
 
 
 ```mermaid
@@ -29,7 +28,7 @@ classDiagram
         abstract void open()
         abstract void print()
         abstract void close()
-        abstract final void display()
+        public void display()
     }
 
     class UserClass {
