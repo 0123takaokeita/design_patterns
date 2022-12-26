@@ -1,15 +1,16 @@
-﻿<Properties StartupConfiguration="{5927D4DE-1509-48DA-8606-62FA9C2A9670}|Default">
+﻿<Properties StartupConfiguration="{6AF4350B-FE89-4718-ABCB-CFA9FCE6D174}|Default">
   <MonoDevelop.Ide.ItemProperties.design__patterns PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="template_method/Program.cs">
+    <Files>
+      <File FileName="template_method/Program.cs" Line="4" Column="8" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="design_patterns" expanded="True">
-            <Node name="design_patterns" expanded="True" selected="True">
-              <Node name="iterator" expanded="True" />
-            </Node>
+            <Node name="template_method" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -24,4 +25,5 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.template__method PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
