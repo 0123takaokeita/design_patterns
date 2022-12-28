@@ -33,6 +33,7 @@ classDiagram
     TVFactory     --   Program       : uses
 
     class Factory {
+        <<abstract>>
         + Product create(string owner)
         # Product createProduct(string owner)
         # void registerProduct(Product product)
@@ -45,6 +46,7 @@ classDiagram
     }
 
     class Product {
+        <<abstract>>
         + void use();
     }
 
