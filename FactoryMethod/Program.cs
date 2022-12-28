@@ -1,6 +1,6 @@
 namespace FactoryMethod ;
 
-internal static class Program 
+internal static class Program
 {
     static void Main(string[] args)
     {
@@ -11,5 +11,9 @@ internal static class Program
         card1.use();
         card2.use();
         card3.use();
+
+        factory = new TVFactory();
+        var tv = factory.create("sharp");
+        tv.use();
     }
 }
