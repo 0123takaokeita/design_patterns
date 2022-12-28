@@ -1,4 +1,5 @@
 namespace FactoryMethod;
+using System.Collections.Generic;
 
 public abstract class Product
 {
@@ -7,27 +8,13 @@ public abstract class Product
 
 public abstract class Factory
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <returns></returns>
+
     protected abstract Product createProduct(string owner);
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="product"></param>
     protected abstract void registerProduct(Product product);
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <returns></returns>
+
     public Product create(string owner)
     {
-        var product = createProduct(owner);
+        Product product = createProduct(owner);
         registerProduct(product);
         return product;
     }
@@ -46,5 +33,19 @@ public class IDCard : Product
     public override void use()
     {
        Console.WriteLine($"{owner}のカードを使用します。"); 
+    }
+}
+
+public class IDCardFactory : Factory
+{
+    private List<Product> owners { get;} = new List<Product>();
+    protected override  Product createProduct(string owner)
+    {
+        return new IDCard(owner);
+    }
+
+    protected override void registerProduct(Product product)
+    {
+        owners.Add(product);
     }
 }

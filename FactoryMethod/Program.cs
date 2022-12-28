@@ -1,3 +1,15 @@
-﻿// See https://aka.ms/new-console-template for more information
+namespace FactoryMethod ;
 
-Console.WriteLine("Hello, World!");
+internal static class Program 
+{
+    static void Main(string[] args)
+    {
+        Factory factory = new IDCardFactory();
+        var card1 = factory.create("たかお");
+        var card2 = factory.create("けいた");
+        var card3 = factory.create("Neo");
+        card1.use();
+        card2.use();
+        card3.use();
+    }
+}
