@@ -4,7 +4,7 @@ public class Singleton
 {
     // private でインスタンスを作っているのがポイント
     private static Singleton instance = new Singleton();
-    
+
     // このコンストラクターは外から呼び出せないため インスタンスを１つに統一する事ができる。
     private Singleton()
     {
@@ -22,9 +22,13 @@ public static class Program
     {
         var obj = Singleton.GetInstance();
         var obj2 = Singleton.GetInstance();
-        
+
         Console.WriteLine("### START ###");
-        Console.WriteLine(obj == obj2 ? "objを同じインスタンを参照しています。" : "objは異なるインスタンスを参照しています。 設計を見直しましょう");
+        Console.WriteLine(ReferenceEquals(obj, obj2));
         Console.WriteLine("### END ###");
+
+        var obj3= ThreadSafe.getInstance();
+        var obj4= ThreadSafe.getInstance();
+        Console.WriteLine(ReferenceEquals(obj3, obj4));
     }
 }

@@ -9,7 +9,7 @@ public class Tripple
         new Tripple(1),
         new Tripple(2)
     };
-    
+
     private Tripple(int id)
     {
         Console.WriteLine($"{id} が作られました。");

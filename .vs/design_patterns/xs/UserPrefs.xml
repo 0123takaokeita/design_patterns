@@ -1,29 +1,27 @@
 ﻿<Properties StartupConfiguration="{6AF4350B-FE89-4718-ABCB-CFA9FCE6D174}|Default">
   <MonoDevelop.Ide.ItemProperties.design__patterns PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.iterator PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.template__method PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <DisabledProjects>
+    <String>adapter/adapter.csproj</String>
+  </DisabledProjects>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workbench ActiveDocument="template_method/Program.cs">
     <Files>
-      <File FileName="template_method/Program.cs" Line="4" Column="8" />
+      <File FileName="template_method/Program.cs" Line="11" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="design_patterns" expanded="True">
-            <Node name="template_method" expanded="True" />
-          </Node>
+          <Node name="design_patterns" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.iterator PreferredExecutionTarget="MonoDevelop.Default" />
-  <DisabledProjects>
-    <String>adapter/adapter.csproj</String>
-  </DisabledProjects>
   <MonoDevelop.Ide.ItemProperties.adapter PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.template__method PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
