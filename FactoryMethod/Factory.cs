@@ -32,13 +32,18 @@ public class IDCard : Product
 
     public override void use()
     {
-       Console.WriteLine($"{owner}のカードを使用します。"); 
+        Console.WriteLine($"{owner}のカードを使用します。"); 
+    }
+
+    public string getOwner()
+    {
+        return owner;
     }
 }
 
 public class IDCardFactory : Factory
 {
-    private List<Product> owners { get;} = new List<Product>();
+    private List<IDCard> owners { get;} = new List<IDCard>();
     protected override  Product createProduct(string owner)
     {
         return new IDCard(owner);
@@ -46,6 +51,13 @@ public class IDCardFactory : Factory
 
     protected override void registerProduct(Product product)
     {
-        owners.Add(product);
+        // 多分ここがポイント
+        // IDCardであることをしているのはIDCardFactoryだから
+        owners.Add(((IDCard)product).getOwner());
+    }
+
+    public List<IDCard> getOwners()
+    {
+        return owners;
     }
 }
