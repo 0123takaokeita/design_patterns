@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace singleton;
 
 /// <summary>
@@ -7,13 +9,18 @@ public class TicketMaker
 {
     private int ticket = 1000;
 
-    private static TicketMaker instancke = new TicketMaker();
+    private static TicketMaker singleton = new TicketMaker();
 
     private TicketMaker() { }
 
+    public TicketMaker getInstance()
+    {
+        return singleton;
+    }
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int getNextTicketNumber()
     {
-        return instancke.ticket++;
+        return ticket++;
 
     }
 }
