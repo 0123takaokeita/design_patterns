@@ -2,16 +2,16 @@ namespace prototype;
 
 public class Manager
 {
-   private HashMap showcase = new HashMap();
+   private Dictionary<string,Product> showcase = new Dictionary<string, Product>();
 
    public void register(string name, Product proto)
    {
-      showcase.put(name, proto);
+      showcase[name] = proto;
    }
 
-   public Product create(string protoname)
+   public Product create(string name)
    {
-      Product p = (Product)showcase.get(protoname);
+      Product p = (Product)showcase[name];
       return p.createClone();
    }
 }
