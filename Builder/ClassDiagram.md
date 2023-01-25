@@ -17,31 +17,37 @@
 
 ```mermaid
     classDiagram
-    SaltWaterBuilder <-- SaltWater : 実装
+    SkateBoard o-- TonyModel : 包含 
+    SkateBoardBuilder <|-- TonyModel : 実装
+    SkateBoardBuilder <.. SkateBoardDirector: use
 
-    class Director {
-        builder
-        Director()
+    class SkateBoardDirector {
+        -builder SkateBoardBuilder;
+        +constract()
     }
 
-    class Builder {
-        addSolute()
-        addSolvent()
-        removeSolution()
-        getResult()
+    class SkateBoardBuilder{
+      <<interface>>
+      +selectDeck();
+      +addTape();
+      +addTruck();
+      +addWheel();
+      +getResult();
     }
 
-    class SaltWaterBuilder {
-        saltWater
-        addSolute()
-        addSolvent()
-        removeSolution()
-        getResult()
+    class TonyModel{
+      +selectDeck();
+      +addTape();
+      +addTruck();
+      +addWheel();
+      +getResult();
     }
 
-    class SaltWater {
-        salt
-        water
+    class SkateBoard{
+      + string deck;
+      + string tape;
+      + string truck;
+      + string wheel;
     }
 
 ```
