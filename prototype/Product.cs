@@ -7,7 +7,7 @@ public interface Product : ICloneable
 
     public object Clone()
     {
-        // return MemberwiseClone();
+        return MemberwiseClone();
     } 
     
     // 仮に createClone が全く同じ実装なのだとしたら interface に書いておくかな。
