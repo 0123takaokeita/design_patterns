@@ -12,19 +12,19 @@ public class Abstraction
         this.imp = imp;
     }
 
-    // imp に委譲
+    // imp に 開けてもらう
     public void open()
     {
         imp.rawOpen();
     }
 
-    // imp に委譲
+    // imp に表示してもらう。
     public void print()
     {
         imp.rawPrint();
     }
 
-    // imp に委譲
+    // imp に閉じてもらう
     public void close()
     {
         imp.rawClose();
