@@ -14,7 +14,7 @@ classDiagram
 	ConcreteProduct3 --   ConcreteFactory   : create
 
 	class IMysqlClient {
-		<<interface>>
+    <<interface>>
 		connection()
 		release()
 	}
