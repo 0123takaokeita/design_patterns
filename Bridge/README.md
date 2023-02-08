@@ -31,7 +31,7 @@ HotKey が keyboard をnew しているのがポイントです。
 classDiagram
     HotKey        <|-- CustomHotKey  : 継承
     HotKey        <|-- CustomHotKey2 : 継承
-    IKeyBoard     o--  HotKey        : 集合
+    IKeyBoard     --o  HotKey        : 集合
     IKeyBoard     <..  KeyBoard      : 実装
     IKeyBoard     <..  UsKeyBoard    : 実装
     CustomHotKey  <..  Client        : use
@@ -64,8 +64,8 @@ classDiagram
     %% 実装クラス
     class IKeyBoard {
         + void copyCmd()
-        + void copyCmd()
-        + vodi copyCmd()
+        + void pastCmd()
+        + vodi trimCmd()
     }
 
     class KeyBoard {
@@ -81,6 +81,14 @@ classDiagram
         + void copyCmd()
         + vodi copyCmd()
     }
+
+    class VimKeyBoard {
+        - string token
+        + void copyCmd()
+        + void copyCmd()
+        + vodi copyCmd()
+    }
+
 ```
 
 # ソースコードの説明 (約1分)

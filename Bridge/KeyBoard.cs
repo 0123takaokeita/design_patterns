@@ -11,7 +11,7 @@ public class KeyBoard : IKeyBoard
 
     public void pastCmd()
     {
-      Console.WriteLine(this.token);
+        Console.WriteLine(this.token);
     }
 
     public void trimCmd(string token)

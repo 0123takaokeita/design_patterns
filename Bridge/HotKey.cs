@@ -17,7 +17,7 @@ public class HotKey
 
     public void past()
     {
-      kb.pastCmd();
+        kb.pastCmd();
     }
 
     public void trim(string token)
@@ -27,7 +27,7 @@ public class HotKey
 
     public void copyAndPast(string token)
     {
-      copy(token);
-      past();
+        copy(token);
+        past();
     }
 }

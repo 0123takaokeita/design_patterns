@@ -6,6 +6,7 @@ public class CustomHotKey : HotKey
 
     public void clearCopyHistory()
     {
-      copy("");
+        copy("");
     }
+
 }
