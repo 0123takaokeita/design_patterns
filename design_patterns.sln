@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visitor", "Visitor\Visitor.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChainOfResponsibility", "ChainOfResponsibility\ChainOfResponsibility.csproj", "{D4E47EA1-0A5D-480B-9916-74FD65692CFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facade", "Facade\Facade.csproj", "{2A70C8DB-0CF8-4D70-91B2-9821E45B3B8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{D4E47EA1-0A5D-480B-9916-74FD65692CFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4E47EA1-0A5D-480B-9916-74FD65692CFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4E47EA1-0A5D-480B-9916-74FD65692CFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A70C8DB-0CF8-4D70-91B2-9821E45B3B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A70C8DB-0CF8-4D70-91B2-9821E45B3B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A70C8DB-0CF8-4D70-91B2-9821E45B3B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A70C8DB-0CF8-4D70-91B2-9821E45B3B8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
