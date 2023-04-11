@@ -15,8 +15,6 @@
 
 ```mermaid
 classDiagram
-    
-
     class ICartObserver {
         +Update(ShoppingCart cart) void
     }
@@ -31,7 +29,18 @@ classDiagram
         -List~Item~ items
         -List~ICartObserver~ observers
         -NotifyObservers() void
+        +AddItem(Item item) void
+        +RemoveItem(Item item) void
+        +AddObserver(ICartObserver observer) void
+        +RemoveObserver(ICartObserver observer) void
+        +CalculateTotal() decimal
+        +Display() void
     }
+    
+    ShoppingCart o-- ICartObserver
+    ShoppingCart o-- Item
+    ICartObserver <|-- CartObserver
+    Program -- ShoppingCart : create
 ```
 
 # ソースコードの説明 (約1分)

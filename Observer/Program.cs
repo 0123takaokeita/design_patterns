@@ -21,7 +21,7 @@ class CartObserver : ICartObserver
     public void Update(ShoppingCart shoppingCart)
     {
         Console.WriteLine("商品かごに変更がありました。");
-        Console.WriteLine(shoppingCart.CalculateTotal());
+        Console.WriteLine($"合計金額 {shoppingCart.CalculateTotal()}");
 
     }
 }
@@ -62,12 +62,7 @@ class ShoppingCart
     /// <returns></returns>
     public decimal CalculateTotal()
     {
-        decimal total = 0;
-        foreach (var item in items)
-        {
-            total += item.Price;
-        }
-        return total;
+        return items.Sum(item => item.Price);
     }
 
     /// <summary>
@@ -105,10 +100,7 @@ class ShoppingCart
     /// </summary>
     private void NotifyObservers()
     {
-        foreach (ICartObserver ob in observers)
-        {
-            ob.Update(this);
-        }
+        observers.ForEach(ob => ob.Update(this));
     }
 }
 
@@ -139,15 +131,38 @@ internal static class Program
         var cart = new ShoppingCart();
         var observer = new CartObserver();
         cart.RegisterObserver(observer);
-        
-        var apple = new Item("apple", 5000);
-        var banana = new Item("banana", 1000);
-        var berry = new Item("berry", 4000);
-        cart.AddItem(apple);
-        cart.AddItem(banana);
-        cart.AddItem(berry);
-        
-        cart.Display();
-        Console.ReadKey();
+
+        while (true)
+        {
+            Console.WriteLine("登録： a,  削除: r,  終了: c, 表示: d");
+            var key = Console.ReadKey(true);
+            if (key.KeyChar == 'c')
+            {
+                break;
+            };
+
+            switch (key.KeyChar)
+            {
+                case 'a': 
+                    Console.WriteLine("商品名を入力してください。 ");
+                    var name = Console.ReadLine();
+                    Console.WriteLine("金額を入力してください。 ");
+                    var price  = int.Parse(Console.ReadLine());
+                    cart.AddItem(new Item(name, price));
+                    break;
+                case 'r': break;
+                case 'd': 
+                    cart.Display();
+                    break;
+            }
+        }
+
+        // var apple = new Item("apple", 5000);
+        // var banana = new Item("banana", 1000);
+        // var berry = new Item("berry", 4000);
+
+        // cart.AddItem(apple);
+        // cart.AddItem(banana);
+        // cart.AddItem(berry);
     }
 }
