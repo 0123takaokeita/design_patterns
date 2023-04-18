@@ -3,36 +3,72 @@
 /// <summary>
 ///  Observer
 /// </summary>
-interface ICartObserver
+interface IObserver<T>
 {
-    void Update(ShoppingCart shoppingCart);
+    void Update(T subject);
 }
 
 /// <summary>
 /// ConcreteObserver
 /// </summary>
-class CartObserver : ICartObserver
+class CartObserver : IObserver<Subject>
 {
     /// <summary>
     /// Updateの実装
     /// 更新通知がきたときの処理を実装する
     /// </summary>
     /// <param name="shoppingCart"></param>
-    public void Update(ShoppingCart shoppingCart)
+    public void Update(Subject subject)
     {
         Console.WriteLine("商品かごに変更がありました。");
-        Console.WriteLine($"合計金額 {shoppingCart.CalculateTotal()}");
+        Console.WriteLine($"合計金額 {subject.CalculateTotal()}");
 
     }
 }
 
 /// <summary>
+/// Subject役で通知部分を実装する。
+/// </summary>
+class Subject
+{
+    // observerのリスト
+    private List<T> observers = new List<T>();
+
+    /// <summary>
+    /// Observerの登録
+    /// </summary>
+    /// <param name="observer"></param>
+    public void RegisterObserver(T observer)
+    {
+        observers.Add(observer);
+    }
+
+    /// <summary>
+    /// Observerの解除
+    /// </summary>
+    /// <param name="observer"></param>
+    public void RemoveObserver(T observer)
+    {
+        observers.Remove(observer);
+    }
+
+    /// <summary>
+    /// 登録しているObserverに通知する機能
+    /// </summary>
+    private void NotifyObservers()
+    {
+        observers.ForEach(ob => ob.Update(this));
+    }
+
+}
+
+/// <summary>
 /// Subject 役
 /// </summary>
-class ShoppingCart
+class ShoppingCart : Subject
 {
+    // 商品のリスト
     private List<Item> items = new List<Item>();
-    private List<ICartObserver> observers = new List<ICartObserver>();
 
     /// <summary>
     /// Itemの追加
@@ -49,6 +85,7 @@ class ShoppingCart
     /// Itemの削除
     /// </summary>
     /// <param name="item"></param>
+
     public void RemoveItem(Item item)
     {
         items.Remove(item);
@@ -65,42 +102,17 @@ class ShoppingCart
         return items.Sum(item => item.Price);
     }
 
-    /// <summary>
-    /// Observerの登録
-    /// </summary>
-    /// <param name="observer"></param>
-    public void RegisterObserver(ICartObserver observer)
-    {
-        observers.Add(observer);
-    }
-
-    /// <summary>
-    /// Observerの解除
-    /// </summary>
-    /// <param name="observer"></param>
-    public void RemoveObserver(ICartObserver observer)
-    {
-        observers.Remove(observer);
-    }
 
     /// <summary>
     /// 現在の買い物かごの状態を確認する。
     /// </summary>
     public void Display()
     {
-        foreach(Item item in items)
+        foreach (Item item in items)
         {
             Console.WriteLine($"名前： {item.Name}  値段：{item.Price}");
         }
         Console.WriteLine($"現在の合計金額： {CalculateTotal()}");
-    }
-
-    /// <summary>
-    /// 登録しているObserverに通知する機能
-    /// </summary>
-    private void NotifyObservers()
-    {
-        observers.ForEach(ob => ob.Update(this));
     }
 }
 
@@ -130,7 +142,9 @@ internal static class Program
     {
         var cart = new ShoppingCart();
         var observer = new CartObserver();
+        // var observer2 = new CartObserver();
         cart.RegisterObserver(observer);
+        // cart.RegisterObserver(observer2);
 
         while (true)
         {
@@ -143,15 +157,15 @@ internal static class Program
 
             switch (key.KeyChar)
             {
-                case 'a': 
+                case 'a':
                     Console.WriteLine("商品名を入力してください。 ");
                     var name = Console.ReadLine();
                     Console.WriteLine("金額を入力してください。 ");
-                    var price  = int.Parse(Console.ReadLine());
+                    var price = int.Parse(Console.ReadLine());
                     cart.AddItem(new Item(name, price));
                     break;
                 case 'r': break;
-                case 'd': 
+                case 'd':
                     cart.Display();
                     break;
             }
