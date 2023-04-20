@@ -1,44 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 
-// Mementoクラス
-// Originatorをもとに戻す役割
-public class BrowserHistoryMemento
+public interface Memento
 {
-    private List<string> urls;
-    private List<string> titles;
-
-    public BrowserHistoryMemento(List<string> urls, List<string> titles)
-    {
-        this.urls = new List<string>(urls);
-        this.titles = new List<string>(titles);
-    }
-
-    public List<string> GetUrls()
-    {
-        return urls;
-    }
-
-    public List<string> GetTitles()
-    {
-        return titles;
-    }
+    string GetUrl();
+    string GetTitle();
 }
+
 
 // Originatorクラス
 // 保存したいときにMementoを作成する役割
 public class BrowserHistory
 {
-    private List<string> urls;
-    private List<string> titles;
+    // TODO:  url titleだけで良い。
+    private string url;
+    private string title;
 
     /// <summary>
     /// コンストラクタ
     /// </summary>
     public BrowserHistory()
     {
-        urls = new List<string>();
-        titles = new List<string>();
+        url = "";
+        title = "";
     }
 
     /// <summary>
@@ -46,25 +30,25 @@ public class BrowserHistory
     /// </summary>
     public void AddPage(string url, string title)
     {
-        urls.Add(url);
-        titles.Add(title);
+        this.url = url;
+        this.title = title;
     }
 
     /// <summary>
     /// 現在の状態を保存する
     /// </summary>
-    public BrowserHistoryMemento SnapShot()
+    public Memento SnapShot()
     {
-        return new BrowserHistoryMemento(urls, titles);
+        return new BrowserHistoryMemento(url, title);
     }
 
     /// <summary>
     /// SnapShotの状態に復元する
     /// </summary>
-    public void RestoreMemento(BrowserHistoryMemento memento)
+    public void RestoreMemento(Memento memento)
     {
-        urls = memento.GetUrls();
-        titles = memento.GetTitles();
+        url = memento.GetUrl();
+        title = memento.GetTitle();
     }
 
     /// <summary>
@@ -73,9 +57,36 @@ public class BrowserHistory
     public void PrintHistory()
     {
         Console.WriteLine("Browsing history:");
-        for (int i = 0; i < urls.Count; i++)
+        // for (int i = 0; i < urls.Count; i++)
+        // {
+        //     Console.WriteLine($"{i + 1}. {titles[i]} - {urls[i]}");
+        // }
+    }
+
+    // Mementoクラス
+    // Originatorをもとに戻す役割
+    class BrowserHistoryMemento : Memento
+    {
+        private string url;
+        private string title;
+
+        // wide
+        public BrowserHistoryMemento(string url, string title)
         {
-            Console.WriteLine("{0}. {1} - {2}", i + 1, titles[i], urls[i]);
+            this.url = url;
+            this.title = title;
+        }
+
+        // narrow
+        public string GetUrl()
+        {
+            return url;
+        }
+
+        // narrow
+        public string GetTitle()
+        {
+            return title;
         }
     }
 }
@@ -85,14 +96,15 @@ public class BrowserHistory
 public class Browser
 {
     private BrowserHistory history;
-    private Stack<BrowserHistoryMemento> undoStack;
-    private Stack<BrowserHistoryMemento> redoStack;
+
+    private List<Memento> historyList;
+    private int historyIndex;
 
     public Browser()
     {
         history = new BrowserHistory();
-        undoStack = new Stack<BrowserHistoryMemento>();
-        redoStack = new Stack<BrowserHistoryMemento>();
+        historyList = new List<Memento>();
+        historyIndex = 0;
     }
 
     /// <summary>
@@ -102,52 +114,31 @@ public class Browser
     /// <param name="title">タイトル</param>
     public void GoToPage(string url, string title)
     {
-        // 現在の状態をundoスタックに追加
-        undoStack.Push(history.SnapShot());
-
-        // snap shot を撮ってからページに移動
         history.AddPage(url, title);
+        // 現在の状態をundoスタックに追加
+        historyList.Add(history.SnapShot());
+        historyIndex = historyList.Count - 1;
 
-        // 移動したのでredoは削除
-        redoStack.Clear();
         Console.WriteLine($"Navigated to {title}: {url}");
     }
 
     // 履歴を戻る
     public void Undo()
     {
-        if (undoStack.Count == 0)
-        {
-            Console.WriteLine("### ERROR ### Nothing to redo");
-            return;
-        }
-
-        // 現在の状態をredoスタックに追加
-        redoStack.Push(history.SnapShot());
-
-        // 直前の状態に復元
-        BrowserHistoryMemento memento = undoStack.Pop();
-        history.RestoreMemento(memento);
+        if (historyIndex.Equals(0)) Console.WriteLine("### ERROR ### Nothing to redo");
 
         Console.WriteLine("### Execute Undo ###");
+        history.RestoreMemento(historyList[historyIndex]);
+        historyIndex--;
     }
 
     public void Redo()
     {
-        if (redoStack.Count == 0)
-        {
-            Console.WriteLine("### ERROR ### Nothing to redo");
-            return;
-        }
-
-        // 現在の状態をundoスタックに追加
-        undoStack.Push(history.SnapShot());
-
-        // 直前の状態に復元
-        BrowserHistoryMemento memento = redoStack.Pop();
-        history.RestoreMemento(memento);
+        if (historyIndex.Equals(historyList.Count - 1)) Console.WriteLine("### ERROR ### Nothing to redo");
 
         Console.WriteLine("### Execute Redo ###");
+        history.RestoreMemento(historyList[historyIndex]);
+        historyIndex++;
     }
 
     /// <summary>
@@ -155,7 +146,12 @@ public class Browser
     /// </summary>
     public void PrintHistory()
     {
-        history.PrintHistory();
+        foreach (var memento in historyList)
+        {
+          Console.WriteLine(memento.GetUrl());      
+          Console.WriteLine(memento.GetTitle());      
+        }
+
         PrintSeparator();
     }
 
@@ -180,23 +176,23 @@ class Program
 
         // 履歴を表示
         browser.PrintHistory();
-
+        
         // 一つ戻る
         browser.Undo();
         browser.PrintHistory();
-
+        
         // 一つ戻る
         browser.Undo();
         browser.PrintHistory();
-
+        
         // 戻ったものを戻る。
         browser.Redo();
         browser.PrintHistory();
-
+        
         // 戻ったものを戻る。
         browser.Redo();
         browser.PrintHistory();
-
+        
         // これは失敗するはず
         browser.Redo();
         browser.PrintHistory();
