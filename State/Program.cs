@@ -45,6 +45,7 @@ class Article
 
     // 状態を変更する
     // このメソッドがないと、状態を変更することができない。
+    // NOTE: 状態の変更についてはこのクラスは関与しなくても良くなっている。
     public void ChangeState(IArticleState state)
     {
         this.state = state;
@@ -67,6 +68,7 @@ class PublishedState : IArticleState
 
     public void Hide(Article article)
     {
+        // NOTE: DraftStateとは密結合になっている。
         DraftState state = new();
         article.ChangeState(state);
         Console.WriteLine($"title: {article.title}を{state.stateName}にしました。");
@@ -93,6 +95,7 @@ class DraftState : IArticleState
     // 公開する
     public void Publish(Article article)
     {
+        // NOTE: PublishedStateとは密結合になっている。
         PublishedState state = new();
         article.ChangeState(state);
         Console.WriteLine($"title: {article.title}を{state.stateName}しました。");
@@ -107,6 +110,7 @@ class DraftState : IArticleState
     // 削除済みにする
     public void Delete(Article article)
     {
+        // NOTE: DeletedStateとは密結合になっている。
         DeletedState state = new();
         article.ChangeState(state);
         Console.WriteLine($"title: {article.title}を削除しました。");
@@ -132,7 +136,9 @@ class DeletedState : IArticleState
     // 非公開にする
     public void Hide(Article article)
     {
-        Console.WriteLine($"{stateName}の記事を非公開にすることはできません。");
+        DraftState state = new();
+        article.ChangeState(state);
+        Console.WriteLine($"{article.title}を{state.stateName}にしました。");
     }
 
     public void Delete(Article article)
@@ -167,30 +173,37 @@ class Client
         separator();
 
         // 記事の状態を確認する。
-        Console.WriteLine("公開のチェック");
+        decorate("公開のチェック");
         article.Show();
         article.Hide();
         article.Publish();
         separator();
 
         // 記事の状態を確認する。
-        Console.WriteLine("非公開のチェック");
-        article.Show();
+        decorate("非公開のチェック");
         article.Hide();
+        article.Show();
         article.Delete();
         separator();
 
         // 記事の状態を確認する。
-        Console.WriteLine("削除済みのチェック");
+        decorate("削除済みのチェック");
+        article.Delete();
+        article.Show();
+        article.Publish();
         article.Show();
         article.Hide();
-        article.Publish();
-        article.Delete();
+        article.Show();
         separator();
     }
 
     static void separator()
     {
         Console.WriteLine("====================================\n");
+    }
+
+    static void decorate(string input)
+    {
+        Console.WriteLine($"##### {input} #####");
     }
 }
