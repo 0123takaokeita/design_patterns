@@ -1,18 +1,8 @@
 ﻿namespace State;
 
-// State クラス
-// 記事の状態を表現するインターフェース
-interface IArticleState
-{
-    void Show(Article article);
-    void Publish(Article article);
-    void Hide(Article article);
-    void Delete(Article article);
-}
-
 // Context クラス
 // 記事を表現するクラス
-class Article
+class Article : IContext
 {
     private IArticleState state;
     public string title { get; set; }
@@ -52,21 +42,37 @@ class Article
     }
 }
 
+// State クラス
+// 記事の状態を表現するインターフェース
+interface IArticleState
+{
+    void Show(IContext article);
+    void Publish(IContext article);
+    void Hide(IContext article);
+    void Delete(IContext article);
+}
+
+interface IContext
+{
+    string title { get; set; }
+    void ChangeState(IArticleState state);
+}
+
 // 公開状態を表現する ConcreteState
 class PublishedState : IArticleState
 {
     public string stateName = "公開";
-    public void Show(Article article)
+    public void Show(IContext article)
     {
         Console.WriteLine($"title: {article.title}は{stateName}されています。");
     }
 
-    public void Publish(Article article)
+    public void Publish(IContext article)
     {
         Console.WriteLine($"title: {article.title}はすでに{stateName}済みです。");
     }
 
-    public void Hide(Article article)
+    public void Hide(IContext article)
     {
         // NOTE: DraftStateとは密結合になっている。
         DraftState state = new();
@@ -74,7 +80,7 @@ class PublishedState : IArticleState
         Console.WriteLine($"title: {article.title}を{state.stateName}にしました。");
     }
 
-    public void Delete(Article article)
+    public void Delete(IContext article)
     {
         article.ChangeState(new DeletedState());
         Console.WriteLine($"title: {article.title}を削除しました。");
@@ -87,13 +93,13 @@ class DraftState : IArticleState
     public string stateName = "非公開";
 
     // 状態を表示する。
-    public void Show(Article article)
+    public void Show(IContext article)
     {
         Console.WriteLine($"title: {article.title} は {stateName}です");
     }
 
     // 公開する
-    public void Publish(Article article)
+    public void Publish(IContext article)
     {
         // NOTE: PublishedStateとは密結合になっている。
         PublishedState state = new();
@@ -102,13 +108,13 @@ class DraftState : IArticleState
     }
 
     // 状態を表示する。
-    public void Hide(Article article)
+    public void Hide(IContext article)
     {
         Console.WriteLine($"title: {article.title} はすでに {stateName} です。");
     }
 
     // 削除済みにする
-    public void Delete(Article article)
+    public void Delete(IContext article)
     {
         // NOTE: DeletedStateとは密結合になっている。
         DeletedState state = new();
@@ -122,26 +128,26 @@ class DeletedState : IArticleState
 {
     public string stateName = "削除済み";
 
-    public void Show(Article article)
+    public void Show(IContext article)
     {
         Console.WriteLine($"{article.title}は削除されています。");
     }
 
     // 公開する
-    public void Publish(Article article)
+    public void Publish(IContext article)
     {
         Console.WriteLine($"{stateName}の記事を公開することはできません。");
     }
 
     // 非公開にする
-    public void Hide(Article article)
+    public void Hide(IContext article)
     {
         DraftState state = new();
         article.ChangeState(state);
         Console.WriteLine($"{article.title}を{state.stateName}にしました。");
     }
 
-    public void Delete(Article article)
+    public void Delete(IContext article)
     {
         Console.WriteLine($"{article.title}削除されています。");
     }
