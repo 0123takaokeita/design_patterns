@@ -14,8 +14,51 @@
     classO .. classP : Link(Dashed)
 ```mermaid
 classDiagram
-    class A { }
-    class B { }
+    IArticleState ..|> PublishedState : Realization
+    IArticleState ..|> DeletedState   : Realization
+    IArticleState ..|> DraftState     : Realization
+    IContext      ..|> Article        : Realization
+    IArticleState ..o Article         : Aggregation
+
+    class IArticleState { 
+        Show(IContext article) void
+        Publish(IContext article) void
+        Hide(IContext article) void
+        Delete(IContext article) void
+    }
+    class IContext {
+        title() string
+        GetState(IArticleState state) void
+    }
+    class Article {
+        -IArticleState state 
+        +string title
+        +Article(string title)
+        +Show() void
+        +Hide() void
+        +Delete() void
+        +Publish() void
+        +ChangeState(IArticleState state) void
+    }
+    class PublishedState { 
+        Show(IContext article) void
+        Publish(IContext article) void
+        Hide(IContext article) void
+        Delete(IContext article) void
+    }
+    class DraftState {  
+        Show(IContext article) void
+        Publish(IContext article) void
+        Hide(IContext article) void
+        Delete(IContext article) void
+    }
+    class DeletedState { 
+        Show(IContext article) void
+        Publish(IContext article) void
+        Hide(IContext article) void
+        Delete(IContext article) void
+    }
+
 ```
 # ソースコードの説明 (約1分)
 
