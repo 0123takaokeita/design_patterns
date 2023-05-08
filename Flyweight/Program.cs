@@ -44,7 +44,7 @@ public class PokemonFactory
 public class PokemonCenter
 {
     // ポケモンを回復させる
-    public void RecoverPokemon(string key)
+    public void RecoveryPokemon(string key)
     {
         var _pokemonFactory = PokemonFactory.GetInstance;
         var _pokemon = _pokemonFactory.GetPokemon(key);
@@ -141,12 +141,13 @@ public class Client
 
         Console.WriteLine("\nポケモンを回復させる。");
         PokemonCenter pokemonCenter = new PokemonCenter();
-        pokemonCenter.RecoverPokemon("hitokage");
-        pokemonCenter.RecoverPokemon("zenigame");
-        pokemonCenter.RecoverPokemon("fusigidane");
+        pokemonCenter.RecoveryPokemon("hitokage");
+        pokemonCenter.RecoveryPokemon("zenigame");
+        pokemonCenter.RecoveryPokemon("fusigidane");
 
         pokemonFactory.PrintPokemonsState();
 
+        // Objectが同じかどうかを確認するなら、GetHashCodeを使う。
         Console.WriteLine(hitokage.GetHashCode());
         Console.WriteLine(pokemonFactory.GetPokemon("hitokage").GetHashCode());
     }
