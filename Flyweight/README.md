@@ -107,3 +107,10 @@ Singletonの勉強のときは [MethodImpl(MethodImplOptions.Synchronized)] と�
 アノテーションを使用したが、`lock{}` を使うだけで実現できるみたい。
 
 [参考](https://ufcpp.net/study/csharp/sp_thread.html#threading)
+
+# 変更点
+PokemonFactory#GetInstance に排他制御を追加した。
+Playerを作ってリュックサックをDictionaryで表現した。
+PokemonCenterで回復するときはPlayerのリュックをわたすように修正した。
+Pokemonの初期値は妥協して体力と攻撃力はマジックナンバー。
+
