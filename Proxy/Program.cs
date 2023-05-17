@@ -5,12 +5,12 @@ public interface ICacheable
 }
 
 // RealSubject役
-public class Real : ICacheable
+public class DataServer : ICacheable
 {
     // ハッシュでデータを保持する。
     private Dictionary<string, string> data = new Dictionary<string, string>();
 
-    public Real()
+    public DataServer()
     {
         // データを設定
         this.data["yahoo"] = "https://yahoo.co.jp";
@@ -34,7 +34,7 @@ public class Proxy : ICacheable
 {
     // ハッシュでデータを保持する。
     private Dictionary<string, string> cache = new Dictionary<string, string>();
-    private Real real = null!;
+    private DataServer real = null!;
     private object _lock = new object();
 
     // データを取得する。
@@ -51,11 +51,11 @@ public class Proxy : ICacheable
     }
 
     // RealSubjectを生成する。
-    public void realize()
+    private void realize()
     {
         lock (_lock)
         {
-            this.real ??= new Real();
+            this.real ??= new DataServer();
         }
     }
 
@@ -70,6 +70,11 @@ public class Proxy : ICacheable
 
 public class Program
 {
+    // キャッシュが聞いているかどうかを確認する。
+    // 1度目の取得では、RealSubjectからデータを取得する。
+    // 2度目の取得では、キャッシュからデータを取得する。
+    // Realのneoをtakaoに変更しても、キャッシュから取得するので、変更が反映されない。
+    // forceがtrueの場合は、強制的にRealSubjectからデータを取得する。
     static void Main(string[] args)
     {
         var proxy = new Proxy();
