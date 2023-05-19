@@ -2,6 +2,7 @@
 public interface ICacheable
 {
     string GetData(string key, bool force);
+    void SetData(string key, string data);
 }
 
 // RealSubject役
@@ -34,20 +35,33 @@ public class Proxy : ICacheable
 {
     // ハッシュでデータを保持する。
     private Dictionary<string, string> cache = new Dictionary<string, string>();
-    private DataServer real = null!;
+    private DataServer? real = null;
     private object _lock = new object();
 
     // データを取得する。
     // forceがtrueの場合は、強制的にRealSubjectからデータを取得する。
     public string GetData(string key, bool force)
     {
-        realize();
-
+        // poolに存在しない場合は、RealSubjectからデータを取得する。
         if (force || !cache.ContainsKey(key))
         {
-            cache[key] = real.GetData(key, force);
+            realize();
+            
+            // poolのデータを上書きするのはここでいいのか？
+            foreach (var v in cache)
+            {
+                real?.SetData(v.Key, v.Value);
+            }
+            cache.Clear();
+
+            // realから取得する。
+            cache[key] = real?.GetData(key, force) ?? "データがありません";
+            return cache[key];
         }
-        return cache[key] ?? "データがありません";
+        else
+        {
+            return cache[key];
+        }
     }
 
     // RealSubjectを生成する。
@@ -59,12 +73,22 @@ public class Proxy : ICacheable
         }
     }
 
-    // Test用メソッド
-    // realへのアクセ方法が思いつかなかった。
+    /// <summary>
+    /// データを設定する。
+    /// </summary>
+    /// <param name="key">キー</param>
+    /// <param name="data">データ</param>
     public void SetData(string key, string data)
     {
-        realize();
-        this.real.SetData(key, data);
+        // realがないならpoolする。
+        if (real == null)
+        {
+            cache[key] = data;
+        }
+        else
+        {
+            real.SetData(key, data);
+        }
     }
 }
 
