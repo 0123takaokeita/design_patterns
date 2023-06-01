@@ -1,79 +1,77 @@
-﻿// undo/redo を機能実装したテキスエディタ
-
-
-// Command 役
-interface ICommand
-{
-    void Execute();
-    void Undo();
-}
-
-// ConcreateCommand 役
-class TextEditCommand : ICommand
-{
-    private readonly TextEditor _editor;
-    private readonly string _text;
-    private string _previousText;
-
-    // コンストラクタ
-    public TextEditCommand(TextEditor editor, string text)
-    {
-        _editor = editor;
-        _text = text;
-        _previousText = "";
-    }
-
-    // 実行
-    public void Execute() { }
-
-    // 元に戻す
-    public void Undo() { }
-}
-
-// macro command
-class SnippetCommand : ICommand
-{
-    private readonly TextEditor _editor;
-    private readonly string _text;
-
-    // コンストラクタ
-    public SnippetCommand(TextEditor editor, string text) { }
-
-    // 実行
-    public void Execute() { }
-
-    // 元に戻す
-    public void Undo() { }
-}
+﻿namespace Command;
 
 // Receiver 役
 // 命令を受け取る役
-// singletonにしないとだめ？
 class TextEditor
 {
-    // Undo Redo は１つの配列でできるのでは？
-    // undo methodは逆操作を実行する考え方もある。
-    // private index
-    private readonly Stack<ICommand> _undoStack = new Stack<ICommand>();
-    private readonly Stack<ICommand> _redoStack = new Stack<ICommand>();
-    private bool _isInsertMode = true;
+    // undo/redo 配列
+    private readonly List<ICommand> _commands = new List<ICommand>();
+    private int _index = -1;
+    public string Text = "";
 
-    public string Text { get; set; } = "";
-
-    public void HandleKey(char key)
+    // key入力で実行コマンドの切り替え
+    public void HandleKey()
     {
+        while (true)
+        {
+            // key入力
+            var key = Console.ReadKey().KeyChar;
+            switch (key)
+            {
+                case 'a':
+                    // index以降のcommandsを削除
+                    _commands.RemoveRange(_index + 1, _commands.Count - _index - 1);
+
+                    Console.WriteLine();
+                    Console.Write(Text);
+                    string text = Console.ReadLine() ?? " ";
+                    var command = new TextEditCommand(this, text);
+                    _commands.Add(command);
+                    _index++;
+                    break;
+                case 'u':
+                    Console.WriteLine();
+                    if (_index < 0)
+                    {
+                        Console.WriteLine("これ以上戻れません。");
+                        break;
+                    }
+                    _index--;
+                    break;
+                case 'r':
+                    Console.WriteLine();
+                    if (_index >= _commands.Count - 1)
+                    {
+                        Console.WriteLine("これ以上戻れません。");
+                        break;
+                    }
+                    _index++;
+                    break;
+                case 'q':
+                    return;
+                default:
+                    Console.WriteLine("対応しているkeyを入力してください");
+                    Console.WriteLine("a:Add u:Undo r:Redo q:Quit");
+                    break;
+            }
+            Execute();
+            Display();
+        }
     }
 
-    public void ExecuteCommand(ICommand command)
+    // commandのExecuteを実行する
+    public void Execute()
     {
+        Text = "";
+        for (var i = 0; i <= _index; i++)
+        {
+            _commands[i].Execute();
+        }
     }
 
-    public void Undo()
+    public void Display()
     {
-    }
-
-    public void Redo()
-    {
+        Console.WriteLine($"現在のText: {Text}");
     }
 }
 
@@ -83,5 +81,10 @@ class Program
 {
     static void Main(string[] args)
     {
+        var editor = new TextEditor();
+
+        Console.WriteLine("key を入力してね");
+        Console.WriteLine("a:Add u:Undo r:Redo q:Quit");
+        editor.HandleKey();
     }
 }
